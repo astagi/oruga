@@ -40,11 +40,10 @@ import Icon from '../icon/Icon'
 import config from '../../utils/config'
 
 import BaseComponentMixin from '../../utils/BaseComponentMixin'
-import VueComponentMixin from '../../utils/VueComponentMixin'
 
 export default {
     name: 'OMenuItem',
-    mixins: [VueComponentMixin(), BaseComponentMixin],
+    mixins: [BaseComponentMixin],
     components: {
         [Icon.name]: Icon
     },

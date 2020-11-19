@@ -1,18 +1,9 @@
 <script>
 import BaseComponentMixin from '../../utils/BaseComponentMixin'
-import VueComponentMixin from '../../utils/VueComponentMixin'
 
-
-let FunctionalComponent = (component) => {
-    component.functional = true
-    component.render.props = component.props
-    component.render.name = 'OMenuList'
-    return component.render
-}
-
-let OMenuList = FunctionalComponent({
+export default {
     name: 'OMenuList',
-    mixins: [VueComponentMixin(), BaseComponentMixin],
+    mixins: [BaseComponentMixin],
     functional: true,
     props: {
         label: String,
@@ -27,38 +18,27 @@ let OMenuList = FunctionalComponent({
             default: 'is-small'
         }
     },
-    render(props, context) {
-        console.log('RENDER')
+    render(createElement, context) {
         let vlabel = null
         const slots = context.slots()
         if (context.props.label || slots.label) {
-            vlabel = this.$createElement('p', { attrs: { 'class': 'menu-label' } },
+            vlabel = createElement('p', { attrs: { 'class': 'menu-label' } },
                 context.props.label
                     ? context.props.icon
                         ? [
-                            this.$createElement('b-icon', {
+                            createElement('o-icon', {
                                 props: {
                                     'icon': context.props.icon,
                                     'pack': context.props.iconPack,
                                     'size': context.props.size
                                 }
                             }),
-                            this.$createElement('span', {}, context.props.label)
+                            createElement('span', {}, context.props.label)
                         ] : context.props.label
                     : slots.label)
         }
-        const vnode = this.$createElement(
-            'ul', { 
-                attrs: { 
-                    'class': 'menu-list', 
-                    'role': context.props.ariaRole === 'menu' ? context.props.ariaRole : null 
-                } 
-            }, slots.default
-        )
-        console.log('BRENDER')
+        const vnode = createElement('ul', { attrs: { 'class': 'menu-list', 'role': context.props.ariaRole === 'menu' ? context.props.ariaRole : null } }, slots.default)
         return vlabel ? [ vlabel, vnode ] : vnode
     }
-})
-
-export default OMenuList
+}
 </script>

@@ -7,6 +7,10 @@ html {
     box-sizing: border-box;
 }
 
+ul {
+    list-style: none
+}
+
 .o-noscroll {
     position: fixed;
     overflow-y: hidden;
